@@ -4,32 +4,36 @@ const config = require('../config.js');
 const Auth = {
 
   /**
-   * check if loged in
-   * @return {Boolean} [description]
+   * log in
+   * @return {object} puppeteer browser and page
    */
-  async _isLogedIn(index0) {
+  async logIn() {
     const {username, password} = config.bonsai.auth;
-    
-    const browser = await puppeteer.launch({headless: false});
+
+    const browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
     await page.goto(config.bonsai.url.signIn, { waitUntil: 'networkidle2' });
 
-    await page.evaluate((username, password) => {
-      document.getElementById('login-user-email').value = username;
-      document.getElementById('login-user-password').value = password;
-      document.querySelector('input[name="commit"]').click(); 
-    }, username, password);
+    await page.type('input[id="login-user-email"]', username);
+    await page.type('input[id="login-user-password"]', password);
+    await Promise.all([
+      page.waitForNavigation(),
+      page.click('input[name="commit"]')
+    ]);
     
-    //await browser.close();
+    return {browser, page};
   },
 
   /**
-   * log in
-   * @return {[type]}          [description]
+   * logOut
+   * closing the browser will terminate the 
+   * session and bonsai will be loged out
+   * 
+   * @param  {[type]} browser
+   * @return {bool} true
    */
-  async logIn() {
-    const isLogedIn = await Auth._isLogedIn();
-    console.log('will login');
+  async logOut(browser, page) {
+    await browser.close();
   }
 
 }
