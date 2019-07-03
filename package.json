@@ -1,0 +1,25 @@
+{
+  "name": "juniper",
+  "version": "1.0.0",
+  "description": "A scraper to get some insights of your Bonsai data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/cepheiVV/Juniper.git"
+  },
+  "keywords": [
+    "freelance",
+    "bonsai",
+    "income",
+    "scraper"
+  ],
+  "author": "Patrick Crausaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cepheiVV/Juniper/issues"
+  },
+  "homepage": "https://github.com/cepheiVV/Juniper#readme"
+}
