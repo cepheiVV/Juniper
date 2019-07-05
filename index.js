@@ -11,8 +11,8 @@ const CliReport = require('./components/cliReport.js');
 
   // get data  
   const timeSheet = await TimeEntries.getTimeEntries(browser, page);
-  const unbilledAmount = await TimeEntries.sumIncome(timeSheet, 'unbilled');
-  const billedAmount = await TimeEntries.sumIncome(timeSheet, 'billed');
+  const unbilledAmount = await TimeEntries.sumUnbilledIncome(timeSheet);
+  const billedAmount = await TimeEntries.sumPendingIncome(timeSheet);
   
   // show data
   await CliReport.report(

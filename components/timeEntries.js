@@ -12,20 +12,20 @@ const TimeEntries = {
     return timeSheet.time_entries
   },
 
+  
   /**
-   * gets the tracked time
-   * and calculates the income that is pending so far
+   * income that will be billed
    * 
    * @param  {Object} timeSheet json
    * @param  {String} status
    * @return {number} rounded income
    */
-  async sumIncome(timeSheet, status) {
+  async sumUnbilledIncome(timeSheet) {
 
     let unbilledAmount = 0;
 
     const unbilledTime = _.filter(timeSheet, (trackedTime) => {
-      return trackedTime.status === status;
+      return trackedTime.status === 'unbilled' || trackedTime.invoice_status === 'drafted';
     });
 
     for (var i = unbilledTime.length - 1; i >= 0; i--) {
@@ -34,6 +34,29 @@ const TimeEntries = {
     }
     
     return Math.round(unbilledAmount);
+  },
+
+  /**
+   * income that has been billed already
+   * 
+   * @param  {Object} timeSheet json
+   * @param  {String} status
+   * @return {number} rounded income
+   */
+  async sumPendingIncome(timeSheet) {
+
+    let billedAmount = 0;
+
+    const billedTime = _.filter(timeSheet, (trackedTime) => {
+      return trackedTime.status === 'billed' && trackedTime.invoice_status === 'outstanding';
+    });
+
+    for (var i = billedTime.length - 1; i >= 0; i--) {
+      let item = billedTime[i];
+      billedAmount += item.rate * (item.seconds / 60 / 60);
+    }
+    
+    return Math.round(billedAmount);
   }
 
 }
