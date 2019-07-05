@@ -17,18 +17,18 @@ A scraper to get some insights of your Bonsai account.
 
 ## Demo output
 ```
-................................
-.   GETTING DATA FROM BONSAI   .
-................................
-.                              .
-.           REPORT             .
-.                              .
-. Invoice not created:  376 USD
-. Invoice not sent:    7236 USD
-. Invoice sent:        9344 USD
-.                              .
-.                              .
-................................
-.    LOGGED OUT FROM BONSAI    .
-................................
+....................................
+.     GETTING DATA FROM BONSAI     .
+....................................
+.                                  .
+.             REPORT               .
+.                                  .
+. Invoice not sent     :  7236 USD
+. (not on invoice yet) :  376 USD
+. Invoice sent         :  9344 USD
+.                                  .
+.                                  .
+....................................
+.      LOGGED OUT FROM BONSAI      .
+....................................
 ```
