@@ -23,8 +23,9 @@ A scraper to get some insights of your Bonsai account.
 .                              .
 .           REPORT             .
 .                              .
-. Unbilled income:  7236 USD
-. Pending income:   9344 USD
+. Invoice not created:  376 USD
+. Invoice not sent:    7236 USD
+. Invoice sent:        9344 USD
 .                              .
 .                              .
 ................................

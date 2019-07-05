@@ -17,15 +17,20 @@ const TimeEntries = {
    * income that will be billed
    * 
    * @param  {Object} timeSheet json
-   * @param  {String} status
+   * @param  {Bool} includeDrafted, when false; shows income that is not on an invoice yet
    * @return {number} rounded income
    */
-  async sumUnbilledIncome(timeSheet) {
+  async sumUnbilledIncome(timeSheet, includeDrafted=true) {
 
     let unbilledAmount = 0;
 
     const unbilledTime = _.filter(timeSheet, (trackedTime) => {
-      return trackedTime.status === 'unbilled' || trackedTime.invoice_status === 'drafted';
+      if (includeDrafted) {
+        return trackedTime.status === 'unbilled' || trackedTime.invoice_status === 'drafted';  
+      } else {
+        return trackedTime.status === 'unbilled' || trackedTime.invoice_exists === false;
+      }
+      
     });
 
     for (var i = unbilledTime.length - 1; i >= 0; i--) {
