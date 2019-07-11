@@ -16,6 +16,7 @@ A scraper to get some insights of your Bonsai account.
 
 
 ## Demo output
+
 ```
 ....................................
 .     GETTING DATA FROM BONSAI     .
@@ -23,9 +24,9 @@ A scraper to get some insights of your Bonsai account.
 .                                  .
 .             REPORT               .
 .                                  .
-. Invoice not sent     :  7236 USD
-. (not on invoice yet) :  376 USD
-. Invoice sent         :  9344 USD
+. Invoice due          :  9344 USD
+. Invoice drafted      :  7236 USD
+. Not on invoice yet   :  431 USD
 .                                  .
 .                                  .
 ....................................
