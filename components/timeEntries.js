@@ -9,7 +9,7 @@ const TimeEntries = {
     let timeSheet = await page.evaluate(() =>  {
         return JSON.parse(document.querySelector("body").innerText); 
     }); 
-    return timeSheet.time_entries
+    return timeSheet.time_entries;
   },
 
   

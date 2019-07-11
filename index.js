@@ -1,6 +1,7 @@
 const Auth = require('./components/auth.js');
-const TimeEntries = require('./components/timeEntries.js');
 const CliReport = require('./components/cliReport.js');
+const Invoices = require('./components/invoices.js');
+const TimeEntries = require('./components/timeEntries.js');
 
 (async () => {
 
@@ -9,17 +10,24 @@ const CliReport = require('./components/cliReport.js');
   const auth = await Auth.logIn();
   const {page, browser} = auth;
 
-  // get data  
+  // get data
+  const invoiceSheet = await Invoices.getInvoices(browser, page);
   const timeSheet = await TimeEntries.getTimeEntries(browser, page);
+
+  // get all incoices that are due
+  const dueInvoices = await Invoices.sum(invoiceSheet, 'outstanding');
+
+  // get all invoices that will be sent
+  const draftedInvoices = await Invoices.sum(invoiceSheet, 'drafted');
+
+  // get time from timetrackers that is not on any invoice yet
   const unbilledAndNoInvoiceAmount = await TimeEntries.sumUnbilledIncome(timeSheet, false);
-  const unbilledAmount = await TimeEntries.sumUnbilledIncome(timeSheet);
-  const billedAmount = await TimeEntries.sumPendingIncome(timeSheet);
   
   // show data
   await CliReport.report(
-    unbilledAmount,
-    unbilledAndNoInvoiceAmount,
-    billedAmount
+    dueInvoices,
+    draftedInvoices,
+    unbilledAndNoInvoiceAmount
   );
 
   // logout

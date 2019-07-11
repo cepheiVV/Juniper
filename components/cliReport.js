@@ -8,15 +8,16 @@ const CliReport = {
     console.log('....................................');
   },
   
-  async report(unbilledAmount, unbilledAndNoInvoiceAmount, billedAmount) {
+  async report(dueInvoices, draftedInvoices, unbilledAndNoInvoiceAmount) {
     const {currency} = config.settings;
 
     console.log('.                                  .');
     console.log('.             REPORT               .');
     console.log('.                                  .');
-    console.log('. Invoice not sent     : ', unbilledAmount, currency);
-    console.log('. (not on invoice yet) : ', unbilledAndNoInvoiceAmount, currency);
-    console.log('. Invoice sent         : ', billedAmount, currency);
+    console.log('. Invoice due          : ', dueInvoices, currency);
+    console.log('. Invoice drafted      : ', draftedInvoices, currency);
+    console.log('. Not on invoice yet   : ', unbilledAndNoInvoiceAmount, currency);
+    
     console.log('.                                  .');
     console.log('.                                  .');
 

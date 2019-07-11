@@ -8,7 +8,8 @@ module.exports = {
     },
     api : {
       timeEntries: 'https://app.hellobonsai.com/api/v1/time_entries?company=true&include_non_project=true',
-      projects: 'https://app.hellobonsai.com/api/v1/projects'
+      projects: 'https://app.hellobonsai.com/api/v1/projects',
+      invoices: 'https://app.hellobonsai.com/api/v1/invoices'
     },
     auth : {
       username: 'user@bonsai.com',
