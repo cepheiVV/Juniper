@@ -18,7 +18,9 @@ const Auth = {
     await Promise.all([
       page.waitForNavigation(),
       page.click('input[name="commit"]')
-    ]);
+    ]).catch(function (err) {
+      console.log(err.message); // some coding error in handling happened
+    });;
 
     return { browser, page };
   },
