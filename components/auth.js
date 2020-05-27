@@ -11,16 +11,20 @@ const Auth = {
 
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
-    await page.goto(config.bonsai.url.signIn, { waitUntil: "networkidle2" });
+    await page
+      .goto(config.bonsai.url.signIn, { waitUntil: "networkidle2" })
+      .catch((e) => {
+        console.log("Navigation failed: " + e.message);
+      });
 
     await page.type('input[id="login-user-email"]', username);
     await page.type('input[id="login-user-password"]', password);
     await Promise.all([
       page.waitForNavigation(),
-      page.click('input[name="commit"]')
+      page.click('input[name="commit"]'),
     ]).catch(function (err) {
       console.log(err.message); // some coding error in handling happened
-    });;
+    });
 
     return { browser, page };
   },
@@ -35,7 +39,7 @@ const Auth = {
    */
   async logOut(browser, page) {
     await browser.close();
-  }
+  },
 };
 
 module.exports = Auth;
