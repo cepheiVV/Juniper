@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const config = require('../config.js');
-const _ = require('lodash')
+const _ = require('lodash');
+const { extendWith } = require('lodash');
 
 const Invoices = {
     
@@ -62,9 +63,17 @@ const Invoices = {
         });
 
         /**
-         * @todo filter 'invoices' by date: show only current month
+         * @todo filter 'invoices' by date: show only current month      
+         *
+         *      get current month
+         *      filter invoices on; invoice.due_date: '2021-11-25',
+         *      cut all invoices exeeding {config.settings.lastDayOfTheMonthlyBillingPeriod}
+         * 
+         *      optionally;
+         *      get invoices of "current month" or "all after current month"
+         *      controlled by a function param
          */
-
+        
         for (var i = invoices.length - 1; i >= 0; i--) {
             let item = invoices[i];
             amount += parseFloat(item.invoice.amount_due);

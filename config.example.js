@@ -17,6 +17,7 @@ module.exports = {
     }
   },
   settings : {
-    currency: 'USD'
+    currency: 'USD',
+    lastDayOfTheMonthlyBillingPeriod: 25
   }
 };
