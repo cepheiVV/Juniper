@@ -12,7 +12,9 @@ const Auth = {
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     await page
-      .goto(config.bonsai.url.signIn, { waitUntil: "networkidle2" })
+      .goto(config.bonsai.url.signIn, { 
+        waitUntil: "networkidle0" 
+      })
       .catch((e) => {
         console.log("Navigation failed: " + e.message);
       });

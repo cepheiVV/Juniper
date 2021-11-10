@@ -5,7 +5,9 @@ const _ = require('lodash')
 const TimeEntries = {
 
   async getTimeEntries(browser, page) {
-    await page.goto(config.bonsai.api.timeEntries, { waitUntil: 'networkidle2' });
+    await page.goto(config.bonsai.api.timeEntries, { 
+      waitUntil: 'networkidle0' 
+    });
     let timeSheet = await page.evaluate(() =>  {
         return JSON.parse(document.querySelector("body").innerText); 
     }); 

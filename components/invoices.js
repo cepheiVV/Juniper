@@ -10,7 +10,11 @@ const Invoices = {
      * @param {Object} page 
      */
     async getInvoices(browser, page) {
-        await page.goto(config.bonsai.api.invoices, { waitUntil: 'networkidle2' });
+        // networkidle0 comes handy for SPAs that load resources with fetch requests.
+        // networkidle2 comes handy for pages that do long-polling or any other side activity.
+        await page.goto(config.bonsai.api.invoices, { 
+            waitUntil: 'networkidle0' 
+        });
         let invoiceSheet = await page.evaluate(() =>  {
             return JSON.parse(document.querySelector("body").innerText); 
         }); 
@@ -24,7 +28,9 @@ const Invoices = {
             while (totalPages >= currentPage) {
                 // fetch page n
                 let targetPage = config.bonsai.api.invoices + '?page=' + currentPage;
-                await page.goto(targetPage, { waitUntil: 'networkidle2' });
+                await page.goto(targetPage, { 
+                    waitUntil: 'networkidle0' 
+                });
                 let nextSheet = await page.evaluate(() =>  {
                     return JSON.parse(document.querySelector("body").innerText); 
                 });
@@ -54,6 +60,10 @@ const Invoices = {
         const invoices = _.filter(invoiceSheet, (invoice) => {
             return invoice.invoice.status === status;
         });
+
+        /**
+         * @todo filter 'invoices' by date: show only current month
+         */
 
         for (var i = invoices.length - 1; i >= 0; i--) {
             let item = invoices[i];
