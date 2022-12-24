@@ -13,19 +13,40 @@ const Auth = {
     const page = await browser.newPage();
     await page
       .goto(config.bonsai.url.signIn, { 
-        waitUntil: "networkidle0" 
+        waitUntil: "networkidle0"
       })
       .catch((e) => {
         console.log("Navigation failed: " + e.message);
+        process.exit();
       });
 
-    await page.type('input[id="login-user-email"]', username);
-    await page.type('input[id="login-user-password"]', password);
+    /**
+     * // Test page markup
+     * let bodyHTML = await page.evaluate(() => document.body.innerHTML);
+     * console.log(bodyHTML);
+     * process.exit();
+     */
+
+    await page
+        .type('input[id="login-user-email"]', username)
+        .catch((e) => {
+          // debug: e.message
+          console.log("Input field input[id=\"login-user-email\"] not found.");
+          process.exit();
+        });
+    await page
+        .type('input[id="login-user-password"]', password)
+        .catch((e) => {
+          // debug: e.message
+          console.log("Input field input[id=\"login-user-password\"] not found.");
+          process.exit();
+        });
     await Promise.all([
       page.waitForNavigation(),
       page.click('input[name="commit"]'),
     ]).catch(function (err) {
       console.log(err.message); // some coding error in handling happened
+      process.exit();
     });
 
     return { browser, page };
